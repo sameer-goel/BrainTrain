@@ -56,8 +56,16 @@ class BrainGymApp {
     }
 
     setupEventListeners() {
-        // Test button clicks
+        // Category card clicks
         document.addEventListener('click', (e) => {
+            const categoryCard = e.target.closest('.category-card');
+            if (categoryCard) {
+                const category = categoryCard.dataset.category;
+                this.handleCategoryClick(category);
+                return;
+            }
+
+            // Test button clicks
             if (e.target.classList.contains('test-button') || e.target.closest('.test-button')) {
                 const testButton = e.target.classList.contains('test-button') ? e.target : e.target.closest('.test-button');
                 const testType = testButton.dataset.test;
@@ -413,11 +421,35 @@ class BrainGymApp {
         }
     }
 
+    handleCategoryClick(category) {
+        console.log(`Category clicked: ${category}`);
+        
+        if (category === 'focus') {
+            this.showTestArea();
+            stroopTest.start();
+        } else {
+            alert(`${category.charAt(0).toUpperCase() + category.slice(1)} exercises coming soon!`);
+        }
+    }
+
+    showTestArea() {
+        const homepageContent = document.querySelector('.homepage-content');
+        if (homepageContent) {
+            homepageContent.innerHTML = '<div id="test-area"></div>';
+        }
+    }
+
     logout() {
         console.log('Logout clicked');
         // In a real app, this would handle logout
         alert('Logout functionality - would return to login or company portal');
     }
+}
+
+// Global function to return to homepage
+function showHomepage() {
+    location.reload();
+}
 }
 
 // Initialize the app when DOM is loaded
