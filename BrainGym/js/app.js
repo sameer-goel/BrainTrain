@@ -450,7 +450,6 @@ class BrainGymApp {
 function showHomepage() {
     location.reload();
 }
-}
 
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
